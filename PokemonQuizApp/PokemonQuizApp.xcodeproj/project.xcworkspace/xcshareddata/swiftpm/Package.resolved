@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "PokemonAPI",
+        "repositoryURL": "https://github.com/kinkofer/PokemonAPI",
+        "state": {
+          "branch": "master",
+          "revision": "37a011db6eb879fad867187ff22c037091df6a3d",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

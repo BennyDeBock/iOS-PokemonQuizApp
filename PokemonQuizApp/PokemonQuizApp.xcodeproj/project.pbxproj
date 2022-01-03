@@ -11,6 +11,8 @@
 		DB0E9AAF27832C6E00ACFCF9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E9AAE27832C6E00ACFCF9 /* ContentView.swift */; };
 		DB0E9AB127832C6F00ACFCF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB0E9AB027832C6F00ACFCF9 /* Assets.xcassets */; };
 		DB0E9AB427832C6F00ACFCF9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB0E9AB327832C6F00ACFCF9 /* Preview Assets.xcassets */; };
+		DB0E9ABC27832EAF00ACFCF9 /* PokemonAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DB0E9ABB27832EAF00ACFCF9 /* PokemonAPI */; };
+		DB0E9ABE2783304900ACFCF9 /* PokemonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E9ABD2783304900ACFCF9 /* PokemonModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,7 @@
 		DB0E9AAE27832C6E00ACFCF9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DB0E9AB027832C6F00ACFCF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB0E9AB327832C6F00ACFCF9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DB0E9ABD2783304900ACFCF9 /* PokemonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB0E9ABC27832EAF00ACFCF9 /* PokemonAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +57,7 @@
 			children = (
 				DB0E9AAC27832C6E00ACFCF9 /* PokemonQuizAppApp.swift */,
 				DB0E9AAE27832C6E00ACFCF9 /* ContentView.swift */,
+				DB0E9ABD2783304900ACFCF9 /* PokemonModel.swift */,
 				DB0E9AB027832C6F00ACFCF9 /* Assets.xcassets */,
 				DB0E9AB227832C6F00ACFCF9 /* Preview Content */,
 			);
@@ -83,6 +88,9 @@
 			dependencies = (
 			);
 			name = PokemonQuizApp;
+			packageProductDependencies = (
+				DB0E9ABB27832EAF00ACFCF9 /* PokemonAPI */,
+			);
 			productName = PokemonQuizApp;
 			productReference = DB0E9AA927832C6E00ACFCF9 /* PokemonQuizApp.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +119,9 @@
 				Base,
 			);
 			mainGroup = DB0E9AA027832C6E00ACFCF9;
+			packageReferences = (
+				DB0E9ABA27832EAF00ACFCF9 /* XCRemoteSwiftPackageReference "PokemonAPI" */,
+			);
 			productRefGroup = DB0E9AAA27832C6E00ACFCF9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DB0E9AAF27832C6E00ACFCF9 /* ContentView.swift in Sources */,
+				DB0E9ABE2783304900ACFCF9 /* PokemonModel.swift in Sources */,
 				DB0E9AAD27832C6E00ACFCF9 /* PokemonQuizAppApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +355,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DB0E9ABA27832EAF00ACFCF9 /* XCRemoteSwiftPackageReference "PokemonAPI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kinkofer/PokemonAPI";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DB0E9ABB27832EAF00ACFCF9 /* PokemonAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB0E9ABA27832EAF00ACFCF9 /* XCRemoteSwiftPackageReference "PokemonAPI" */;
+			productName = PokemonAPI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DB0E9AA127832C6E00ACFCF9 /* Project object */;
 }
