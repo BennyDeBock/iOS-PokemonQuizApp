@@ -31,3 +31,9 @@ extension Collection where Element == PokemonRegionModel.Pokemon {
         return filtered.count == 1
     }
 }
+
+extension Collection where Element == PokemonRegionModel.Pokemon {
+    func getPokemon(matching id: Int) -> Self? {
+        first(where: { $0.id == id }) as? Self
+    }
+}

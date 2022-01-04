@@ -35,25 +35,35 @@ class PokemonQuizGame: ObservableObject {
     private var pokemonFetchCancellable: AnyCancellable?
     
     func chooseRandomPokemon() {
-        let chosenPokemon = pokemonRegion.chooseRandomPokemon()
+        let pokedexRange = pokemonRegion.upperBound - pokemonRegion.lowerBound
         
-        if !pokemon.contains(matching: chosenPokemon){
-            pokemonFetchCancellable = PokemonAPI().pokemonService.fetchPokemon(chosenPokemon)
-                .sink(receiveCompletion: { completion in
-                    if case .failure(let error) = completion {
-                        print(error.localizedDescription)
-                    }
-                }, receiveValue: { pokemon in
-                    let spriteUrl = URL(string: pokemon.sprites!.frontDefault!)
-                    self.addPokemon(has: pokemon.id!, has: pokemon.name!, with: .url(spriteUrl!))
-                    
-                    print("\(pokemon.id ?? 0): \(pokemon.name ?? "MissingNo")")
-                    //print("\(pokemon.sprites?.frontDefault ?? "NotFound")")
-                })
-        } else {
-            print("All pokemon collected")
+        if pokemon.count != pokedexRange {
+            var chosenPokemon = pokemonRegion.chooseRandomPokemon()
+            var newPokemon = false
+            
+            //Loop until it finds a pokemon that hasn't been added yet
+            repeat {
+                if !pokemon.contains(matching: chosenPokemon){
+                    pokemonFetchCancellable = PokemonAPI().pokemonService.fetchPokemon(chosenPokemon)
+                        .sink(receiveCompletion: { completion in
+                            if case .failure(let error) = completion {
+                                print(error.localizedDescription)
+                            }
+                        }, receiveValue: { pokemon in
+                            let spriteUrl = URL(string: pokemon.sprites!.frontDefault!)
+                            self.addPokemon(has: pokemon.id!, has: pokemon.name!, with: .url(spriteUrl!))
+                            
+                            print("\(pokemon.id ?? 0): \(pokemon.name ?? "MissingNo")")
+                            //print("\(pokemon.sprites?.frontDefault ?? "NotFound")")
+                        })
+                    newPokemon = true
+                } else {
+                    chosenPokemon = pokemonRegion.chooseRandomPokemon()
+                }
+            } while (!newPokemon)
         }
         
+        print("\(pokemon.count + 1)")
     }
     
     func addPokemon(has id: Int, has name: String, with sprite: Sprite) {
