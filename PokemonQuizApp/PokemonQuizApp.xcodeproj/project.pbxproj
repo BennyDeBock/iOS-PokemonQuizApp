@@ -8,20 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		DB0E9AAD27832C6E00ACFCF9 /* PokemonQuizApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E9AAC27832C6E00ACFCF9 /* PokemonQuizApp.swift */; };
-		DB0E9AAF27832C6E00ACFCF9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E9AAE27832C6E00ACFCF9 /* ContentView.swift */; };
+		DB0E9AAF27832C6E00ACFCF9 /* PokemonGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E9AAE27832C6E00ACFCF9 /* PokemonGameView.swift */; };
 		DB0E9AB127832C6F00ACFCF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB0E9AB027832C6F00ACFCF9 /* Assets.xcassets */; };
 		DB0E9AB427832C6F00ACFCF9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB0E9AB327832C6F00ACFCF9 /* Preview Assets.xcassets */; };
 		DB0E9ABC27832EAF00ACFCF9 /* PokemonAPI in Frameworks */ = {isa = PBXBuildFile; productRef = DB0E9ABB27832EAF00ACFCF9 /* PokemonAPI */; };
 		DB0E9ABE2783304900ACFCF9 /* PokemonRegionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E9ABD2783304900ACFCF9 /* PokemonRegionModel.swift */; };
+		DB6694B227845D4F00A14282 /* PokemonQuizGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B127845D4F00A14282 /* PokemonQuizGame.swift */; };
+		DB6694B6278465C200A14282 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B5278465C200A14282 /* UtilityViews.swift */; };
+		DB6694B827846BA300A14282 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B727846BA300A14282 /* Sprite.swift */; };
+		DB6694BA27846CD800A14282 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B927846CD800A14282 /* UtilityExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DB0E9AA927832C6E00ACFCF9 /* PokemonQuizApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonQuizApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB0E9AAC27832C6E00ACFCF9 /* PokemonQuizApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonQuizApp.swift; sourceTree = "<group>"; };
-		DB0E9AAE27832C6E00ACFCF9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DB0E9AAE27832C6E00ACFCF9 /* PokemonGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonGameView.swift; sourceTree = "<group>"; };
 		DB0E9AB027832C6F00ACFCF9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB0E9AB327832C6F00ACFCF9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DB0E9ABD2783304900ACFCF9 /* PokemonRegionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonRegionModel.swift; sourceTree = "<group>"; };
+		DB6694B127845D4F00A14282 /* PokemonQuizGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonQuizGame.swift; sourceTree = "<group>"; };
+		DB6694B5278465C200A14282 /* UtilityViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
+		DB6694B727846BA300A14282 /* Sprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
+		DB6694B927846CD800A14282 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +64,12 @@
 			isa = PBXGroup;
 			children = (
 				DB0E9AAC27832C6E00ACFCF9 /* PokemonQuizApp.swift */,
-				DB0E9AAE27832C6E00ACFCF9 /* ContentView.swift */,
+				DB0E9AAE27832C6E00ACFCF9 /* PokemonGameView.swift */,
+				DB6694B5278465C200A14282 /* UtilityViews.swift */,
+				DB6694B127845D4F00A14282 /* PokemonQuizGame.swift */,
 				DB0E9ABD2783304900ACFCF9 /* PokemonRegionModel.swift */,
+				DB6694B927846CD800A14282 /* UtilityExtensions.swift */,
+				DB6694B727846BA300A14282 /* Sprite.swift */,
 				DB0E9AB027832C6F00ACFCF9 /* Assets.xcassets */,
 				DB0E9AB227832C6F00ACFCF9 /* Preview Content */,
 			);
@@ -148,8 +160,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB0E9AAF27832C6E00ACFCF9 /* ContentView.swift in Sources */,
+				DB6694B227845D4F00A14282 /* PokemonQuizGame.swift in Sources */,
+				DB0E9AAF27832C6E00ACFCF9 /* PokemonGameView.swift in Sources */,
+				DB6694B6278465C200A14282 /* UtilityViews.swift in Sources */,
+				DB6694BA27846CD800A14282 /* UtilityExtensions.swift in Sources */,
 				DB0E9ABE2783304900ACFCF9 /* PokemonRegionModel.swift in Sources */,
+				DB6694B827846BA300A14282 /* Sprite.swift in Sources */,
 				DB0E9AAD27832C6E00ACFCF9 /* PokemonQuizApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

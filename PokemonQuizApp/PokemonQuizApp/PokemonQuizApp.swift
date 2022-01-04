@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct PokemonQuizApp: App {
+    private let game = PokemonQuizGame()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PokemonGameView(game: game)
         }
     }
 }
