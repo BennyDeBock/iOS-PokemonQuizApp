@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct PokemonQuizAppApp: App {
+struct PokemonQuizApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

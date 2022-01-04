@@ -15,7 +15,7 @@ struct PokemonRegionModel {
         let id: Int
         let name: String
         
-        fileprivate init(id: Int,g name: String) {
+        fileprivate init(id: Int, name: String) {
             self.id = id
             self.name = name
         }
