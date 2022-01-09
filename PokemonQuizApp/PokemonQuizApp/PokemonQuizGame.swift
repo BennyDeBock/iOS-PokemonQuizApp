@@ -13,12 +13,50 @@ class PokemonQuizGame: ObservableObject {
     
     
     private static func createPokemonRegion() -> PokemonRegionModel {
-        PokemonRegionModel(id: 1, name: "Kanto", lowerBound: 252, upperBound: 254/*386*/)
+        PokemonRegionModel(has: 1, with: "Kanto", pokedexLowerLimit: 252, pokedexUpperLimit: 254/*386*/)
         // 252 - 386
     }
     
     @Published private var pokemonRegion = createPokemonRegion()
     
+    
+    
+    private var pokemonRegions = [PokemonRegionModel]() {
+        didSet{
+            storeInUserDefaults()
+        }
+    }
+    
+    
+    private var userDefaultsKey: String {
+        "PokemonQuizGame"
+    }
+    
+    private func storeInUserDefaults(){
+        UserDefaults.standard.set(try? JSONEncoder().encode(pokemonRegions), forKey: userDefaultsKey)
+    }
+    
+    private func restoreFromUserDefaults(){
+        if let jsonData = UserDefaults.standard.data(forKey: userDefaultsKey),
+           let decodedRegions = try? JSONDecoder().decode(Array<PokemonRegionModel>.self, from: jsonData){
+            pokemonRegions = decodedRegions
+        }
+    }
+    
+    init() {
+        restoreFromUserDefaults()
+        print(pokemonRegions)
+        if(pokemonRegions.isEmpty)
+        {
+            addRegion(with: "Kanto", pokedexLowerLimit: 1, pokedexUpperLimit: 151)
+            addRegion(with: "Johto", pokedexLowerLimit: 152, pokedexUpperLimit: 251)
+            addRegion(with: "Hoenn", pokedexLowerLimit: 252, pokedexUpperLimit: 386)
+            addRegion(with: "Sinnoh", pokedexLowerLimit: 387, pokedexUpperLimit: 493)
+            addRegion(with: "Unova", pokedexLowerLimit: 494, pokedexUpperLimit: 649)
+            addRegion(with: "Kalos", pokedexLowerLimit: 650, pokedexUpperLimit: 721)
+            addRegion(with: "Alola", pokedexLowerLimit: 722, pokedexUpperLimit: 809)
+        }
+    }
     
     // To return information of the given pokemon to the player if needed
     var pokemon: [PokemonRegionModel.Pokemon] { pokemonRegion.pokemon }
@@ -122,6 +160,13 @@ class PokemonQuizGame: ObservableObject {
     
     
     // MARK: - Intent(s)
+    private func addRegion(with name: String, pokedexLowerLimit lower: Int, pokedexUpperLimit upper: Int, at index: Int = 0) {
+        let unique = (pokemonRegions.max(by: { $0.id < $1.id })?.id ?? 0) + 1
+        let region = PokemonRegionModel(has: unique, with: name, pokedexLowerLimit: lower, pokedexUpperLimit: upper)
+        let safeIndex = min(max(index, 0), pokemonRegions.count)
+        pokemonRegions.insert(region, at: safeIndex)
+    }
+    
     func addPokemon(has id: Int, has name: String, with sprite: Sprite) {
         pokemonRegion.addPokemon(id, name, sprite)
     }
@@ -136,6 +181,15 @@ class PokemonQuizGame: ObservableObject {
     }
     
     func checkGameEnded() -> Bool {
-        pokemonRegion.checkGameEnded()
+        print(pokemon.count)
+        print(pokemonRegion.upperBound - pokemonRegion.lowerBound + 1)
+        if pokemon.count == (pokemonRegion.upperBound - pokemonRegion.lowerBound + 1) {
+            return pokemonRegion.checkGameEnded()
+        }
+        return false
+    }
+    
+    func resetGame() {
+        pokemonRegion.resetPokemon()
     }
 }

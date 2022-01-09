@@ -37,3 +37,26 @@ extension Collection where Element == PokemonRegionModel.Pokemon {
         first(where: { $0.id == id }) ?? nil
     }
 }
+
+extension CGSize {
+    // the center point of an area that is our size
+    var center: CGPoint {
+        CGPoint(x: width/2, y: height/2)
+    }
+}
+
+extension CGRect {
+    var center: CGPoint {
+        CGPoint(x: midX, y: midY)
+    }
+}
+
+extension View {
+    func toCenter(in geometry: GeometryProxy) -> CGPoint {
+        let center = geometry.frame(in: .local).center
+        return CGPoint(
+            x: center.x,
+            y: center.y
+        )
+    }
+}

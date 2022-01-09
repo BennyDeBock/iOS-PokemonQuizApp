@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HighscoreView: View {
-    @ObservedObject var game: PokemonQuizGame
+    @EnvironmentObject var game: PokemonQuizGame
     
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
@@ -17,7 +17,6 @@ struct HighscoreView: View {
 
 struct HighscoreView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = PokemonQuizGame()
-        HighscoreView(game: game)
+        HighscoreView()
     }
 }

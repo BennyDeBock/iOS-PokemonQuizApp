@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct PokemonRegionModel: Identifiable {
+struct PokemonRegionModel: Identifiable, Codable {
     let id: Int
     let name: String
     var pokemon = [Pokemon]()
@@ -17,7 +17,14 @@ struct PokemonRegionModel: Identifiable {
     var highscore: Int = 0
     var highestScore: Int = 0
     
-    struct Pokemon: Identifiable {
+    init(has id: Int, with name: String, pokedexLowerLimit lower: Int, pokedexUpperLimit upper: Int) {
+        self.id = id
+        self.name = name
+        self.lowerBound = lower
+        self.upperBound = upper
+    }
+    
+    struct Pokemon: Identifiable, Codable {
         let id: Int
         let name: String
         var guessed: Bool = false
@@ -58,8 +65,19 @@ struct PokemonRegionModel: Identifiable {
             highestScore = highscore
             highscore = 0
         }
+        
         for index in 0..<pokemon.count {
             pokemon[index].guessed = false
         }
+    }
+    
+    private var consecutiveGuesses: Int = 0
+    mutating func increaseHighscore(is consecutive: Bool) {
+        highscore += consecutiveGuesses == 0 ? PokemonRegionConstants.increaseScore : PokemonRegionConstants.increaseScore + ((PokemonRegionConstants.increaseScore * consecutiveGuesses) / PokemonRegionConstants.increaseMultiplierDivider)
+    }
+    
+    private struct PokemonRegionConstants {
+        static let increaseScore: Int = 50
+        static let increaseMultiplierDivider: Int = 5
     }
 }

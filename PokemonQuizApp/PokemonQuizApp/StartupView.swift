@@ -8,16 +8,15 @@
 import SwiftUI
 
 struct StartupView: View {
-    private let game = PokemonQuizGame()
     
     var body: some View {
         NavigationView {
             ZStack {
                 GeometryReader { geometry in
-                    VStack(alignment: .center) {
+                    LazyVStack(alignment: .center) {
                         Text("Who's that pokémon?")
                             .font(.title)
-                        NavigationLink(destination: PokemonGameView(game: game)) {
+                        NavigationLink(destination: PokemonGameView()) {
                             Text("Choose region")
                                 .padding()
                                 .foregroundColor(.black)
@@ -27,7 +26,7 @@ struct StartupView: View {
                                 .shadow(color: .black, radius: 1)
                         }
                         
-                        NavigationLink(destination: HighscoreView(game: game)) {
+                        NavigationLink(destination: HighscoreView()) {
                             Text("Highscores")
                                 .padding()
                                 .foregroundColor(.black)
@@ -36,7 +35,7 @@ struct StartupView: View {
                                 .cornerRadius(20)
                                 .shadow(color: .black, radius: 1)
                         }
-                    }
+                    }.position(toCenter(in: geometry))
                 }
             }
             .background(

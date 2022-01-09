@@ -8,21 +8,25 @@
 import SwiftUI
 
 struct PokemonGameView: View {
-    @ObservedObject var game: PokemonQuizGame
+    @Environment(\.presentationMode) var presentationMode
+    
+    @EnvironmentObject var game: PokemonQuizGame
     @State var name: String = ""
     @State var guessed: Bool = false
     @State var gameFinished: Bool = false
     
     var body: some View {
-        pokemonBody
-            .padding(20)
-            .background(
-                ZStack{
-                    Color.red.ignoresSafeArea()
-                    Image("background")
-                        .asBackgroundModifier()
-                }
-            )
+        ZStack{
+            GeometryReader { geometry in
+                pokemonBody
+                    .padding(20)
+                    .position(toCenter(in: geometry))
+            }
+        }
+        .background(
+            Image("background")
+                .asBackgroundModifier()
+        )
     }
     
     var pokemonBody: some View {
@@ -34,7 +38,6 @@ struct PokemonGameView: View {
                 HStack {
                     OptionalImage(uiImage: game.spriteImage, guessed: guessed)
                 }.frame(width: 250, height: 250)
-                
                 HStack {
                     TextField("Name", text: $name)
                         .disabled(guessed)
@@ -48,6 +51,7 @@ struct PokemonGameView: View {
                         .frame(width: 300)
                     Button {
                         if guessed {
+                            gameFinished = game.checkGameEnded()
                             choosePokemon()
                             guessed = false
                         } else {
@@ -69,6 +73,11 @@ struct PokemonGameView: View {
                         .cornerRadius(GameConstants.cornerRadius)
                         .shadow(color: .black, radius: 1)
                 }
+            } else {
+                Text("Finished")
+                Button("Go back to menu"){
+                    presentationMode.wrappedValue.dismiss()
+                }
             }
         }.onAppear {
             game.chooseRandomPokemon()
@@ -86,6 +95,12 @@ struct PokemonGameView: View {
         name = ""
     }
     
+    func reset() {
+        gameFinished = false
+        guessed = false
+        
+    }
+    
     
     private struct GameConstants {
         static let buttonScale: CGFloat = 1.5
@@ -101,7 +116,7 @@ struct PokemonGameView: View {
 struct PokemonGameView_Previews: PreviewProvider {
     static var previews: some View {
         let game = PokemonQuizGame()
-        PokemonGameView(game: game)
+        PokemonGameView()
             .previewDevice("iPhone 11 Pro Max")
     }
 }

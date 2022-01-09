@@ -9,11 +9,12 @@ import SwiftUI
 
 @main
 struct PokemonQuizApp: App {
-    private let game = PokemonQuizGame()
+    @StateObject var game = PokemonQuizGame()
     
     var body: some Scene {
         WindowGroup {
             StartupView()
+                .environmentObject(game)
 //            PokemonGameView(game: game)
         }
     }
