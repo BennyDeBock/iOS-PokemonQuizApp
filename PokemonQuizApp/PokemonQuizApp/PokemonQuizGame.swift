@@ -37,7 +37,6 @@ class PokemonQuizGame: ObservableObject {
     
     init() {
         restoreFromUserDefaults()
-        print(pokemonRegions)
         if(pokemonRegions.isEmpty)
         {
             addRegion(with: "Kanto", pokedexLowerLimit: 1, pokedexUpperLimit: 151)

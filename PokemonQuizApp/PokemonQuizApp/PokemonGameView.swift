@@ -40,11 +40,18 @@ struct PokemonGameView: View {
                     ProgressView()
                         .scaleEffect(2)
                         .frame(width: GameConstants.imageFrameSize, height: GameConstants.imageFrameSize)
-                } else {
+                } else if game.spriteFetchStatus == .idle {
                     HStack {
                         OptionalImage(uiImage: game.spriteImage, guessed: guessed)
-                    }.frame(width: GameConstants.imageFrameSize, height: GameConstants.imageFrameSize)
+                    }
+                    .frame(width: GameConstants.imageFrameSize, height: GameConstants.imageFrameSize)
+                } else {
+                    Text("Something went wrong loading the sprite. Try again later")
+                        .font(.title)
+                        .foregroundColor(GameConstants.textColor)
                 }
+                    
+                    
                 
                 HStack {
                     TextField("Name", text: $name)
@@ -95,23 +102,22 @@ struct PokemonGameView: View {
         }
     }
     
-    func choosePokemon() {
+    private func choosePokemon() {
         game.chooseRandomPokemon()
     }
     
-    func guessPokemon() {
+    private func guessPokemon() {
         if game.guessPokemon(guess: name) {
             guessed = true
         }
         name = ""
     }
     
-    func reset() {
+    private func reset() {
         gameFinished = false
         guessed = false
         game.resetGame()
     }
-    
     
     private struct GameConstants {
         static let buttonScale: CGFloat = 1.5
