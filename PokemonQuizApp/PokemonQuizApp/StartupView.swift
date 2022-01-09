@@ -16,24 +16,15 @@ struct StartupView: View {
                     LazyVStack(alignment: .center) {
                         Text("Who's that pokémon?")
                             .font(.title)
+                            .foregroundColor(ViewConstants.textColor)
                         NavigationLink(destination: RegionIndexView()) {
                             Text("Choose region")
-                                .padding()
-                                .foregroundColor(.black)
-                                .font(.title)
-                                .background(Color.yellow)
-                                .cornerRadius(20)
-                                .shadow(color: .black, radius: 1)
+                                .modifier(PokemonButton())
                         }
                         
                         NavigationLink(destination: HighscoreView()) {
                             Text("Highscores")
-                                .padding()
-                                .foregroundColor(.black)
-                                .font(.title)
-                                .background(Color.yellow)
-                                .cornerRadius(20)
-                                .shadow(color: .black, radius: 1)
+                                .modifier(PokemonButton())
                         }
                     }.position(toCenter(in: geometry))
                 }
@@ -44,6 +35,10 @@ struct StartupView: View {
             )
             
         }.navigationViewStyle(.stack)
+    }
+    
+    struct ViewConstants {
+        static let textColor = Color.black
     }
 }
 

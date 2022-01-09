@@ -21,6 +21,8 @@ struct HighscoreView: View {
                             .shadow(color: .black, radius: 2)
                         ForEach(game.pokemonRegions) { region in
                             Text("\(region.name): \(region.highestScore)")
+                                .font(.title)
+                                .foregroundColor(HighscoresConstants.textColor)
                         }
                     }
                 }
@@ -30,6 +32,10 @@ struct HighscoreView: View {
             Image("background")
                 .asBackgroundModifier()
         )
+    }
+    
+    struct HighscoresConstants {
+        static let textColor = Color.black
     }
 }
 

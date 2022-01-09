@@ -35,6 +35,7 @@ struct PokemonGameView: View {
             if !gameFinished {
                 Text("Who's that pokemon?")
                     .font(.title)
+                    .foregroundColor(GameConstants.textColor)
                 if game.spriteFetchStatus == .fetching {
                     ProgressView()
                         .scaleEffect(2)
@@ -47,6 +48,7 @@ struct PokemonGameView: View {
                 
                 HStack {
                     TextField("Name", text: $name)
+                        .foregroundColor(GameConstants.textColor)
                         .disabled(guessed)
                         .disableAutocorrection(true)
                         .padding()
@@ -74,16 +76,14 @@ struct PokemonGameView: View {
                                 .scaleEffect(GameConstants.buttonScale)
                         }
                     }
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color.yellow)
-                        .cornerRadius(GameConstants.cornerRadius)
-                        .shadow(color: .black, radius: 1)
+                        .modifier(PokemonButton())
                 }
                 Text("Score: \(game.highscore)")
+                    .foregroundColor(GameConstants.textColor)
             } else {
                 Text("Region Completed")
                     .font(.title)
+                    .foregroundColor(GameConstants.textColor)
                 Text("Score: \(game.highscore)")
                 Button("Go back to menu"){
                     reset()
@@ -119,6 +119,7 @@ struct PokemonGameView: View {
         static let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
         static let imageFrameSize: CGFloat = 250.0
         static let textFieldWidth: CGFloat = 300.0
+        static let textColor = Color.black
     }
     
     

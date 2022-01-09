@@ -30,13 +30,8 @@ struct RegionIndexView: View {
                         game.changeRegion(to: region.name)
                     }) {
                         Text("\(region.name)")
-                            .padding()
                             .frame(width: RegionIndexConstants.navButtonWidth)
-                            .foregroundColor(.black)
-                            .font(.title)
-                            .background(Color.yellow)
-                            .cornerRadius(20)
-                            .shadow(color: .black, radius: 1)
+                            .modifier(PokemonButton())
                     }
                 }
             }
