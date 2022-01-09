@@ -40,8 +40,8 @@ class PokemonQuizGame: ObservableObject {
         print(pokemonRegions)
         if(pokemonRegions.isEmpty)
         {
-            addRegion(with: "Kanto", pokedexLowerLimit: 149, pokedexUpperLimit: 151)
-            addRegion(with: "Johto", pokedexLowerLimit: 248, pokedexUpperLimit: 251)
+            addRegion(with: "Kanto", pokedexLowerLimit: 1, pokedexUpperLimit: 151)
+            addRegion(with: "Johto", pokedexLowerLimit: 152, pokedexUpperLimit: 251)
             addRegion(with: "Hoenn", pokedexLowerLimit: 252, pokedexUpperLimit: 386)
             addRegion(with: "Sinnoh", pokedexLowerLimit: 387, pokedexUpperLimit: 493)
             addRegion(with: "Unova", pokedexLowerLimit: 494, pokedexUpperLimit: 649)
