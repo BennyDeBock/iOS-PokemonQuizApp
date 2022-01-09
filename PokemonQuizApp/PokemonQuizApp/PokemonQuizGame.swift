@@ -36,16 +36,17 @@ class PokemonQuizGame: ObservableObject {
     }
     
     init() {
-        //restoreFromUserDefaults()
+        restoreFromUserDefaults()
+        print(pokemonRegions)
         if(pokemonRegions.isEmpty)
         {
-            addRegion(with: "Kanto", pokedexLowerLimit: 150, pokedexUpperLimit: 151)
-            addRegion(with: "Johto", pokedexLowerLimit: 250, pokedexUpperLimit: 251)
-            addRegion(with: "Hoenn", pokedexLowerLimit: 385, pokedexUpperLimit: 386)
-            addRegion(with: "Sinnoh", pokedexLowerLimit: 492, pokedexUpperLimit: 493)
-            addRegion(with: "Unova", pokedexLowerLimit: 645, pokedexUpperLimit: 649)
-            addRegion(with: "Kalos", pokedexLowerLimit: 718, pokedexUpperLimit: 721)
-            addRegion(with: "Alola", pokedexLowerLimit: 806, pokedexUpperLimit: 809)
+            addRegion(with: "Kanto", pokedexLowerLimit: 149, pokedexUpperLimit: 151)
+            addRegion(with: "Johto", pokedexLowerLimit: 152, pokedexUpperLimit: 251)
+            addRegion(with: "Hoenn", pokedexLowerLimit: 252, pokedexUpperLimit: 386)
+            addRegion(with: "Sinnoh", pokedexLowerLimit: 387, pokedexUpperLimit: 493)
+            addRegion(with: "Unova", pokedexLowerLimit: 494, pokedexUpperLimit: 649)
+            addRegion(with: "Kalos", pokedexLowerLimit: 650, pokedexUpperLimit: 721)
+            addRegion(with: "Alola", pokedexLowerLimit: 722, pokedexUpperLimit: 809)
         }
     }
     
@@ -62,7 +63,7 @@ class PokemonQuizGame: ObservableObject {
         case failed(URL)
     }
     private var spriteFetchCancellable: AnyCancellable?
-    private var spriteFetchStatus = SpriteFetchStatus.idle
+    @Published var spriteFetchStatus = SpriteFetchStatus.idle
     
     private func fetchPokemonSpriteIfNecessary() {
         spriteImage = nil
@@ -90,7 +91,7 @@ class PokemonQuizGame: ObservableObject {
     
     // MARK: - Fetch a pokemon
     @Published var spriteImage: UIImage?
-    @Published var pokemonFetchStatus = PokemonFetchStatus.idle
+    var pokemonFetchStatus = PokemonFetchStatus.idle
     
     enum PokemonFetchStatus {
         case idle
@@ -102,12 +103,12 @@ class PokemonQuizGame: ObservableObject {
     
     //Choose a random pokemon from either the already stores list or get a pokemon not yet in the list
     func chooseRandomPokemon() {
-        pokemonFetchStatus = PokemonFetchStatus.fetching
+        pokemonFetchStatus = .fetching
         let pokedexRange = pokemonRegion.upperBound - pokemonRegion.lowerBound + 1
         var chosenPokemon = pokemonRegion.chooseRandomPokemon()
         
         //Retrieve from the internet
-        if pokemon.count != pokedexRange {
+        if pokemonRegion.pokemon.count != pokedexRange {
             var newPokemon = false
             
             //Loop until it finds a pokemon that hasn't been added yet
@@ -127,35 +128,28 @@ class PokemonQuizGame: ObservableObject {
                             self?.pokemonFetchStatus = PokemonFetchStatus.idle
                             self?.fetchPokemonSpriteIfNecessary()
                             self?.chosenPokemonId += 1
-                            print(pokemonName)
                         })
                     newPokemon = true
                 } else {
                     chosenPokemon = pokemonRegion.chooseRandomPokemon()
                 }
             } while (!newPokemon)
-        } else if !pokemonRegion.checkGameEnded() {
-            var notGuessedPokemon = false
-            repeat {
-                //Check if chosen pokemon has been guessed
-                if ((pokemon.getPokemon(matching: chosenPokemon)?.guessed) != nil) {
-                    chosenPokemon = pokemonRegion.chooseRandomPokemon()
-                } else {
-                    notGuessedPokemon = true
-                }
-            } while (!notGuessedPokemon)
+        } else if !gameHasEnded {
+            pokemonFetchStatus = .idle
+            fetchPokemonSpriteIfNecessary()
+            chosenPokemonId += 1
         } else {
-            print("Got all pokemon: \(pokemon.count):\(pokedexRange)")
+            print("Congrats, you finished")
         }
     }
     
     
     // MARK: - Initialized
     func changeRegion(to name: String) {
+        resetGame()
         let region = pokemonRegions.getRegion(with: name)
-        print("Chosen: \(region!)")
-        chosenPokemonId = 0
         pokemonRegion = region!
+        chooseRandomPokemon()
     }
     
     // MARK: - Intent(s)
@@ -174,6 +168,8 @@ class PokemonQuizGame: ObservableObject {
         if pokemon[chosenPokemonId - 1].name == name.lowercased() {
             pokemonRegion.pokemon[chosenPokemonId - 1].guessed = true
             pokemonRegion.increaseHighscore(is: true)
+            save()
+            checkGameEnded()
             return true
         } else {
             pokemonRegion.increaseHighscore(is: false)
@@ -181,19 +177,35 @@ class PokemonQuizGame: ObservableObject {
         }
     }
     
-    func checkGameEnded() -> Bool {
-        print(pokemon.count)
-        print(pokemonRegion.upperBound - pokemonRegion.lowerBound + 1)
+    var gameHasEnded: Bool = false
+    
+    func checkGameEnded() {
+        save()
         if pokemon.count == (pokemonRegion.upperBound - pokemonRegion.lowerBound + 1) {
-            return pokemonRegion.checkGameEnded()
+            let hasEnded = pokemonRegion.checkGameEnded()
+            print("hasEnded: \(hasEnded)")
+            if(hasEnded){
+                gameHasEnded = true
+            }
         }
-        return false
     }
     
+    private func save() {
+        let index = pokemonRegions.index(matching: pokemonRegion)
+        if index != nil {
+            pokemonRegions[index!] = pokemonRegion
+            if let encoded = try? JSONEncoder().encode(pokemonRegions) {
+                UserDefaults.standard.set(encoded, forKey: userDefaultsKey)
+            }
+        }
+    }
     
     // MARK: - Reset
     
     func resetGame() {
-        pokemonRegion.resetPokemon()
+        pokemonRegion.reset()
+        chosenPokemonId = 0
+        gameHasEnded = false
+        save()
     }
 }

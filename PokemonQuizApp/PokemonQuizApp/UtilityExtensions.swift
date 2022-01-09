@@ -36,7 +36,13 @@ extension Collection where Element == PokemonRegionModel.Pokemon {
     func getPokemon(matching id: Int) -> PokemonRegionModel.Pokemon? {
         first(where: { $0.id == id }) ?? nil
     }
+    
+    func index(matching id: Int) -> Self.Index? {
+        firstIndex(where: { $0.id == id }) ?? nil
+    }
 }
+
+
 
 extension Collection where Element == PokemonRegionModel {
     func getRegion(with name: String) -> PokemonRegionModel? {

@@ -26,8 +26,8 @@ struct RegionIndexView: View {
         ScrollView {
             LazyVStack (alignment: .center){
                 ForEach(game.pokemonRegions) { region in
-                    NavigationLink(destination: PokemonGameView().onAppear{
-                        changeRegion(to: region.name)
+                    NavigationLink(destination: PokemonGameView().onAppear {
+                        game.changeRegion(to: region.name)
                     }) {
                         Text("\(region.name)")
                             .padding()
@@ -41,11 +41,6 @@ struct RegionIndexView: View {
                 }
             }
         }
-    }
-    
-    private func changeRegion(to name: String) {
-        game.changeRegion(to: name)
-        game.chooseRandomPokemon()
     }
     
     private struct RegionIndexConstants {

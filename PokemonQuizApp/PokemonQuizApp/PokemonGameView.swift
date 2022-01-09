@@ -11,6 +11,7 @@ struct PokemonGameView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var game: PokemonQuizGame
+    var regionName: String = ""
     @State var name: String = ""
     @State var guessed: Bool = false
     @State var gameFinished: Bool = false
@@ -34,10 +35,16 @@ struct PokemonGameView: View {
             if !gameFinished {
                 Text("Who's that pokemon?")
                     .font(.title)
+                if game.spriteFetchStatus == .fetching {
+                    ProgressView()
+                        .scaleEffect(2)
+                        .frame(width: GameConstants.imageFrameSize, height: GameConstants.imageFrameSize)
+                } else {
+                    HStack {
+                        OptionalImage(uiImage: game.spriteImage, guessed: guessed)
+                    }.frame(width: GameConstants.imageFrameSize, height: GameConstants.imageFrameSize)
+                }
                 
-                HStack {
-                    OptionalImage(uiImage: game.spriteImage, guessed: guessed)
-                }.frame(width: 250, height: 250)
                 HStack {
                     TextField("Name", text: $name)
                         .disabled(guessed)
@@ -48,10 +55,10 @@ struct PokemonGameView: View {
                             RoundedRectangle(cornerRadius: GameConstants.cornerRadius)
                                 .stroke(lineWidth: 2)
                         )
-                        .frame(width: 300)
+                        .frame(width: GameConstants.textFieldWidth)
                     Button {
                         if guessed {
-                            gameFinished = game.checkGameEnded()
+                            gameFinished = game.gameHasEnded
                             choosePokemon()
                             guessed = false
                         } else {
@@ -73,9 +80,11 @@ struct PokemonGameView: View {
                         .cornerRadius(GameConstants.cornerRadius)
                         .shadow(color: .black, radius: 1)
                 }
-                Text("Highscore: \(game.highscore)")
+                Text("Score: \(game.highscore)")
             } else {
-                Text("Finished")
+                Text("Region Completed")
+                    .font(.title)
+                Text("Score: \(game.highscore)")
                 Button("Go back to menu"){
                     presentationMode.wrappedValue.dismiss()
                 }
@@ -99,7 +108,7 @@ struct PokemonGameView: View {
     func reset() {
         gameFinished = false
         guessed = false
-        
+        game.resetGame()
     }
     
     
@@ -107,6 +116,8 @@ struct PokemonGameView: View {
         static let buttonScale: CGFloat = 1.5
         static let cornerRadius: CGFloat = 20.0
         static let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
+        static let imageFrameSize: CGFloat = 250.0
+        static let textFieldWidth: CGFloat = 300.0
     }
     
     

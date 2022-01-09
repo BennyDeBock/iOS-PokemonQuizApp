@@ -13,7 +13,17 @@ struct HighscoreView: View {
     var body: some View {
         ZStack{
             GeometryReader { geometry in
-                Text("cool")
+                ScrollView {
+                    LazyVStack {
+                        Text("Highscores")
+                            .font(.title)
+                            .foregroundColor(.yellow)
+                            .shadow(color: .black, radius: 2)
+                        ForEach(game.pokemonRegions) { region in
+                            Text("\(region.name): \(region.highestScore)")
+                        }
+                    }
+                }
             }
         }
         .background(

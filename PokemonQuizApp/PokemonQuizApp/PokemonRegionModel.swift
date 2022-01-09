@@ -66,12 +66,18 @@ struct PokemonRegionModel: Identifiable, Codable {
         return hasEnded
     }
     
+    
+    
     // MARK: - Reset
-    mutating func resetPokemon() {
+    mutating func reset() {
         if highscore > highestScore {
             highestScore = highscore
             highscore = 0
         }
+        
+        consecutiveGuesses = 0
+        
+        pokemon.shuffle()
         
         for index in 0..<pokemon.count {
             pokemon[index].guessed = false

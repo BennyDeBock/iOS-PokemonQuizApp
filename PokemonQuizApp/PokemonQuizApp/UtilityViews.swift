@@ -17,7 +17,7 @@ struct OptionalImage: View {
                 Image(uiImage: uiImage!)
                     .scaleEffect(PokemonImageConstraints.spriteScale)
                     .frame(width: PokemonImageConstraints.frameDimensions, height: PokemonImageConstraints.frameDimensions)
-                    .transition(.asymmetric(insertion: .identity, removal: .scale).animation(.linear(duration: 1.0)))
+                    .transition(.asymmetric(insertion: .identity, removal: .identity))
             } else {
                 Color.black
                     .mask(
