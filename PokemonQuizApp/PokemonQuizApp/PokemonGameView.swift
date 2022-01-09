@@ -86,6 +86,7 @@ struct PokemonGameView: View {
                     .font(.title)
                 Text("Score: \(game.highscore)")
                 Button("Go back to menu"){
+                    reset()
                     presentationMode.wrappedValue.dismiss()
                 }
             }
