@@ -73,6 +73,7 @@ struct PokemonGameView: View {
                         .cornerRadius(GameConstants.cornerRadius)
                         .shadow(color: .black, radius: 1)
                 }
+                Text("Highscore: \(game.highscore)")
             } else {
                 Text("Finished")
                 Button("Go back to menu"){

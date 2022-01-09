@@ -51,7 +51,7 @@ class PokemonQuizGame: ObservableObject {
     
     // To return information of the given pokemon to the player if needed
     var pokemon: [PokemonRegionModel.Pokemon] { pokemonRegion.pokemon }
-    
+    var highscore: Int { pokemonRegion.highscore }
     private var chosenPokemonId: Int = 0
     
     
@@ -173,8 +173,10 @@ class PokemonQuizGame: ObservableObject {
     func guessPokemon(guess name: String) -> Bool {
         if pokemon[chosenPokemonId - 1].name == name.lowercased() {
             pokemonRegion.pokemon[chosenPokemonId - 1].guessed = true
+            pokemonRegion.increaseHighscore(is: true)
             return true
         } else {
+            pokemonRegion.increaseHighscore(is: false)
             return false
         }
     }

@@ -80,7 +80,12 @@ struct PokemonRegionModel: Identifiable, Codable {
     
     private var consecutiveGuesses: Int = 0
     mutating func increaseHighscore(is consecutive: Bool) {
-        highscore += consecutiveGuesses == 0 ? PokemonRegionConstants.increaseScore : PokemonRegionConstants.increaseScore + ((PokemonRegionConstants.increaseScore * consecutiveGuesses) / PokemonRegionConstants.increaseMultiplierDivider)
+        if consecutive {
+            highscore += consecutiveGuesses == 0 ? PokemonRegionConstants.increaseScore : PokemonRegionConstants.increaseScore + ((PokemonRegionConstants.increaseScore * consecutiveGuesses) / PokemonRegionConstants.increaseMultiplierDivider)
+            consecutiveGuesses += 1
+        } else {
+            consecutiveGuesses = 0
+        }
     }
     
     private struct PokemonRegionConstants {
