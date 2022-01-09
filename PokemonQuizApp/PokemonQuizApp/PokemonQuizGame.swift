@@ -11,17 +11,9 @@ import PokemonAPI
 
 class PokemonQuizGame: ObservableObject {
     
+    @Published private var pokemonRegion: PokemonRegionModel = PokemonRegionModel()
     
-    private static func createPokemonRegion() -> PokemonRegionModel {
-        PokemonRegionModel(has: 1, with: "Kanto", pokedexLowerLimit: 252, pokedexUpperLimit: 254/*386*/)
-        // 252 - 386
-    }
-    
-    @Published private var pokemonRegion = createPokemonRegion()
-    
-    
-    
-    private var pokemonRegions = [PokemonRegionModel]() {
+    var pokemonRegions = [PokemonRegionModel]() {
         didSet{
             storeInUserDefaults()
         }
@@ -44,17 +36,16 @@ class PokemonQuizGame: ObservableObject {
     }
     
     init() {
-        restoreFromUserDefaults()
-        print(pokemonRegions)
+        //restoreFromUserDefaults()
         if(pokemonRegions.isEmpty)
         {
-            addRegion(with: "Kanto", pokedexLowerLimit: 1, pokedexUpperLimit: 151)
-            addRegion(with: "Johto", pokedexLowerLimit: 152, pokedexUpperLimit: 251)
-            addRegion(with: "Hoenn", pokedexLowerLimit: 252, pokedexUpperLimit: 386)
-            addRegion(with: "Sinnoh", pokedexLowerLimit: 387, pokedexUpperLimit: 493)
-            addRegion(with: "Unova", pokedexLowerLimit: 494, pokedexUpperLimit: 649)
-            addRegion(with: "Kalos", pokedexLowerLimit: 650, pokedexUpperLimit: 721)
-            addRegion(with: "Alola", pokedexLowerLimit: 722, pokedexUpperLimit: 809)
+            addRegion(with: "Kanto", pokedexLowerLimit: 150, pokedexUpperLimit: 151)
+            addRegion(with: "Johto", pokedexLowerLimit: 250, pokedexUpperLimit: 251)
+            addRegion(with: "Hoenn", pokedexLowerLimit: 385, pokedexUpperLimit: 386)
+            addRegion(with: "Sinnoh", pokedexLowerLimit: 492, pokedexUpperLimit: 493)
+            addRegion(with: "Unova", pokedexLowerLimit: 645, pokedexUpperLimit: 649)
+            addRegion(with: "Kalos", pokedexLowerLimit: 718, pokedexUpperLimit: 721)
+            addRegion(with: "Alola", pokedexLowerLimit: 806, pokedexUpperLimit: 809)
         }
     }
     
@@ -131,7 +122,7 @@ class PokemonQuizGame: ObservableObject {
                             }
                         }, receiveValue: { [weak self] pokemon in
                             let spriteUrl = URL(string: pokemon.sprites!.frontDefault!)
-                            let pokemonName = pokemon.name!.hasPrefix("deoxys") ? "deoxys" : pokemon.name!
+                            let pokemonName = pokemon.name!
                             self?.addPokemon(has: pokemon.id!, has: pokemonName, with: .url(spriteUrl!))
                             self?.pokemonFetchStatus = PokemonFetchStatus.idle
                             self?.fetchPokemonSpriteIfNecessary()
@@ -158,6 +149,14 @@ class PokemonQuizGame: ObservableObject {
         }
     }
     
+    
+    // MARK: - Initialized
+    func changeRegion(to name: String) {
+        let region = pokemonRegions.getRegion(with: name)
+        print("Chosen: \(region!)")
+        chosenPokemonId = 0
+        pokemonRegion = region!
+    }
     
     // MARK: - Intent(s)
     private func addRegion(with name: String, pokedexLowerLimit lower: Int, pokedexUpperLimit upper: Int, at index: Int = 0) {
@@ -188,6 +187,9 @@ class PokemonQuizGame: ObservableObject {
         }
         return false
     }
+    
+    
+    // MARK: - Reset
     
     func resetGame() {
         pokemonRegion.resetPokemon()

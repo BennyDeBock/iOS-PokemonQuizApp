@@ -19,6 +19,7 @@
 		DB6694BA27846CD800A14282 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B927846CD800A14282 /* UtilityExtensions.swift */; };
 		DB9227B0278A2EBF00051985 /* HighscoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9227AF278A2EBF00051985 /* HighscoreView.swift */; };
 		DBA80259278A1D3D000B9AE2 /* StartupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA80258278A1D3D000B9AE2 /* StartupView.swift */; };
+		DBED475B278B3AA3009F2002 /* RegionIndexView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBED475A278B3AA3009F2002 /* RegionIndexView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		DB6694B927846CD800A14282 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
 		DB9227AF278A2EBF00051985 /* HighscoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighscoreView.swift; sourceTree = "<group>"; };
 		DBA80258278A1D3D000B9AE2 /* StartupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupView.swift; sourceTree = "<group>"; };
+		DBED475A278B3AA3009F2002 /* RegionIndexView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionIndexView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				DB0E9AAE27832C6E00ACFCF9 /* PokemonGameView.swift */,
 				DBA80258278A1D3D000B9AE2 /* StartupView.swift */,
 				DB9227AF278A2EBF00051985 /* HighscoreView.swift */,
+				DBED475A278B3AA3009F2002 /* RegionIndexView.swift */,
 				DB6694B5278465C200A14282 /* UtilityViews.swift */,
 				DB6694B127845D4F00A14282 /* PokemonQuizGame.swift */,
 				DB0E9ABD2783304900ACFCF9 /* PokemonRegionModel.swift */,
@@ -171,6 +174,7 @@
 				DBA80259278A1D3D000B9AE2 /* StartupView.swift in Sources */,
 				DB6694B6278465C200A14282 /* UtilityViews.swift in Sources */,
 				DB6694BA27846CD800A14282 /* UtilityExtensions.swift in Sources */,
+				DBED475B278B3AA3009F2002 /* RegionIndexView.swift in Sources */,
 				DB0E9ABE2783304900ACFCF9 /* PokemonRegionModel.swift in Sources */,
 				DB6694B827846BA300A14282 /* Sprite.swift in Sources */,
 				DB0E9AAD27832C6E00ACFCF9 /* PokemonQuizApp.swift in Sources */,

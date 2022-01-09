@@ -11,7 +11,15 @@ struct HighscoreView: View {
     @EnvironmentObject var game: PokemonQuizGame
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack{
+            GeometryReader { geometry in
+                Text("cool")
+            }
+        }
+        .background(
+            Image("background")
+                .asBackgroundModifier()
+        )
     }
 }
 

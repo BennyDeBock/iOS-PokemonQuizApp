@@ -16,7 +16,7 @@ struct StartupView: View {
                     LazyVStack(alignment: .center) {
                         Text("Who's that pokémon?")
                             .font(.title)
-                        NavigationLink(destination: PokemonGameView()) {
+                        NavigationLink(destination: RegionIndexView()) {
                             Text("Choose region")
                                 .padding()
                                 .foregroundColor(.black)

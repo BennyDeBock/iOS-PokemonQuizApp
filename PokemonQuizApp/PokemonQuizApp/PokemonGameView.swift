@@ -80,7 +80,7 @@ struct PokemonGameView: View {
                 }
             }
         }.onAppear {
-            game.chooseRandomPokemon()
+            reset()
         }
     }
     
@@ -115,7 +115,6 @@ struct PokemonGameView: View {
 
 struct PokemonGameView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = PokemonQuizGame()
         PokemonGameView()
             .previewDevice("iPhone 11 Pro Max")
     }

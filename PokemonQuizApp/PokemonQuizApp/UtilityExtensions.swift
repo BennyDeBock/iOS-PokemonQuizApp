@@ -38,6 +38,12 @@ extension Collection where Element == PokemonRegionModel.Pokemon {
     }
 }
 
+extension Collection where Element == PokemonRegionModel {
+    func getRegion(with name: String) -> PokemonRegionModel? {
+        first(where: { $0.name == name }) ?? nil
+    }
+}
+
 extension CGSize {
     // the center point of an area that is our size
     var center: CGPoint {

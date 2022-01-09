@@ -17,6 +17,13 @@ struct PokemonRegionModel: Identifiable, Codable {
     var highscore: Int = 0
     var highestScore: Int = 0
     
+    init() {
+        self.id = 999
+        self.name = "Missing"
+        self.lowerBound = 0
+        self.upperBound = 0
+    }
+    
     init(has id: Int, with name: String, pokedexLowerLimit lower: Int, pokedexUpperLimit upper: Int) {
         self.id = id
         self.name = name
