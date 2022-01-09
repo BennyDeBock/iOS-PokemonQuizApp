@@ -17,6 +17,8 @@
 		DB6694B6278465C200A14282 /* UtilityViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B5278465C200A14282 /* UtilityViews.swift */; };
 		DB6694B827846BA300A14282 /* Sprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B727846BA300A14282 /* Sprite.swift */; };
 		DB6694BA27846CD800A14282 /* UtilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6694B927846CD800A14282 /* UtilityExtensions.swift */; };
+		DB9227B0278A2EBF00051985 /* HighscoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB9227AF278A2EBF00051985 /* HighscoreView.swift */; };
+		DBA80259278A1D3D000B9AE2 /* StartupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBA80258278A1D3D000B9AE2 /* StartupView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		DB6694B5278465C200A14282 /* UtilityViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityViews.swift; sourceTree = "<group>"; };
 		DB6694B727846BA300A14282 /* Sprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sprite.swift; sourceTree = "<group>"; };
 		DB6694B927846CD800A14282 /* UtilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityExtensions.swift; sourceTree = "<group>"; };
+		DB9227AF278A2EBF00051985 /* HighscoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighscoreView.swift; sourceTree = "<group>"; };
+		DBA80258278A1D3D000B9AE2 /* StartupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +69,8 @@
 			children = (
 				DB0E9AAC27832C6E00ACFCF9 /* PokemonQuizApp.swift */,
 				DB0E9AAE27832C6E00ACFCF9 /* PokemonGameView.swift */,
+				DBA80258278A1D3D000B9AE2 /* StartupView.swift */,
+				DB9227AF278A2EBF00051985 /* HighscoreView.swift */,
 				DB6694B5278465C200A14282 /* UtilityViews.swift */,
 				DB6694B127845D4F00A14282 /* PokemonQuizGame.swift */,
 				DB0E9ABD2783304900ACFCF9 /* PokemonRegionModel.swift */,
@@ -162,11 +168,13 @@
 			files = (
 				DB6694B227845D4F00A14282 /* PokemonQuizGame.swift in Sources */,
 				DB0E9AAF27832C6E00ACFCF9 /* PokemonGameView.swift in Sources */,
+				DBA80259278A1D3D000B9AE2 /* StartupView.swift in Sources */,
 				DB6694B6278465C200A14282 /* UtilityViews.swift in Sources */,
 				DB6694BA27846CD800A14282 /* UtilityExtensions.swift in Sources */,
 				DB0E9ABE2783304900ACFCF9 /* PokemonRegionModel.swift in Sources */,
 				DB6694B827846BA300A14282 /* Sprite.swift in Sources */,
 				DB0E9AAD27832C6E00ACFCF9 /* PokemonQuizApp.swift in Sources */,
+				DB9227B0278A2EBF00051985 /* HighscoreView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

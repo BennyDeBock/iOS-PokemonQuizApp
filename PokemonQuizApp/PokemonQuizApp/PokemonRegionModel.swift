@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct PokemonRegionModel: Identifiable {
     let id: Int
@@ -13,10 +14,12 @@ struct PokemonRegionModel: Identifiable {
     var pokemon = [Pokemon]()
     let lowerBound: Int // Lowerbound of the pokedex for the region e.g. 1
     let upperBound: Int // Upperbound of the pokedex for the region e.g. 151
+    var highscore: Int = 0
     
     struct Pokemon: Identifiable {
         let id: Int
         let name: String
+        var guessed: Bool = false
         var sprite = Sprite.blank
         
         fileprivate init(id: Int, name: String, sprite: Sprite) {
@@ -36,5 +39,12 @@ struct PokemonRegionModel: Identifiable {
     
     func chooseRandomPokemon() -> Int {
         Int.random(in: lowerBound...upperBound)
+    }
+    
+    // MARK: - Reset
+    mutating func resetPokemon() {
+        for index in 0..<pokemon.count {
+            pokemon[index].guessed = false
+        }
     }
 }

@@ -9,40 +9,83 @@ import SwiftUI
 
 struct PokemonGameView: View {
     @ObservedObject var game: PokemonQuizGame
+    @State var name: String = ""
+    @State var guessed: Bool = false
     
     var body: some View {
-        ZStack {
-            Image("background")
-                .asBackgroundModifier()
-            pokemonBody
-        }
+        pokemonBody
+            .padding(20)
+            .background(
+                ZStack{
+                    Color.red.ignoresSafeArea()
+                    Image("background")
+                        .asBackgroundModifier()
+                }
+            )
     }
     
     var pokemonBody: some View {
-        VStack {
+        LazyVStack {
             Button("Choose pokemon") {
                 choosePokemon()
             }
             
-            ScrollView {
-                VStack(alignment: .leading){
-                    ForEach(game.pokemon) { pokemon in
-                        HStack {
-                            Group{
-                                Text("ID: \(pokemon.id)")
-                                Spacer()
-                                Text("Name: \(pokemon.name)")
-                            }
-                            .font(.largeTitle)
-                        }
+            HStack {
+                OptionalImage(uiImage: game.spriteImage, guessed: guessed)
+            }.frame(width: 250, height: 250)
+            
+            HStack {
+                TextField("Name", text: $name)
+                    .disabled(guessed)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: GameConstants.cornerRadius).fill(GameConstants.lightGreyColor))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: GameConstants.cornerRadius)
+                            .stroke(lineWidth: 2)
+                    )
+                    .frame(width: 300)
+                Button {
+                    if guessed {
+                        choosePokemon()
+                        guessed = false
+                    } else {
+                        guessPokemon()
+                    }
+                    
+                } label: {
+                    if guessed {
+                        Image(systemName: "arrowtriangle.right")
+                            .scaleEffect(GameConstants.buttonScale)
+                    } else {
+                        Image(systemName: "checkmark")
+                            .scaleEffect(GameConstants.buttonScale)
                     }
                 }
+                    .padding()
+                    .foregroundColor(.black)
+                    .background(Color.yellow)
+                    .cornerRadius(GameConstants.cornerRadius)
+                    .shadow(color: .black, radius: 1)
             }
-        }.padding(50)
+        }
     }
     
     func choosePokemon() {
         game.chooseRandomPokemon()
+    }
+    
+    func guessPokemon() {
+        if game.guessPokemon(guess: name) {
+            guessed = true
+        }
+        name = ""
+    }
+    
+    
+    private struct GameConstants {
+        static let buttonScale: CGFloat = 1.5
+        static let cornerRadius: CGFloat = 20.0
+        static let lightGreyColor = Color(red: 239.0/255.0, green: 243.0/255.0, blue: 244.0/255.0, opacity: 1.0)
     }
     
     

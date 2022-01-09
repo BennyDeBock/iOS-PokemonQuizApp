@@ -13,7 +13,8 @@ struct PokemonQuizApp: App {
     
     var body: some Scene {
         WindowGroup {
-            PokemonGameView(game: game)
+            StartupView()
+//            PokemonGameView(game: game)
         }
     }
 }
