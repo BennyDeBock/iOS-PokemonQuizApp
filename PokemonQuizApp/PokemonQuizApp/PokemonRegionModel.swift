@@ -15,6 +15,7 @@ struct PokemonRegionModel: Identifiable {
     let lowerBound: Int // Lowerbound of the pokedex for the region e.g. 1
     let upperBound: Int // Upperbound of the pokedex for the region e.g. 151
     var highscore: Int = 0
+    var highestScore: Int = 0
     
     struct Pokemon: Identifiable {
         let id: Int
@@ -41,8 +42,22 @@ struct PokemonRegionModel: Identifiable {
         Int.random(in: lowerBound...upperBound)
     }
     
+    func checkGameEnded() -> Bool {
+        var hasEnded: Bool = true
+        pokemon.forEach { poke in
+            if !poke.guessed {
+                hasEnded = false
+            }
+        }
+        return hasEnded
+    }
+    
     // MARK: - Reset
     mutating func resetPokemon() {
+        if highscore > highestScore {
+            highestScore = highscore
+            highscore = 0
+        }
         for index in 0..<pokemon.count {
             pokemon[index].guessed = false
         }

@@ -11,6 +11,7 @@ struct PokemonGameView: View {
     @ObservedObject var game: PokemonQuizGame
     @State var name: String = ""
     @State var guessed: Bool = false
+    @State var gameFinished: Bool = false
     
     var body: some View {
         pokemonBody
@@ -26,47 +27,51 @@ struct PokemonGameView: View {
     
     var pokemonBody: some View {
         LazyVStack {
-            Button("Choose pokemon") {
-                choosePokemon()
-            }
-            
-            HStack {
-                OptionalImage(uiImage: game.spriteImage, guessed: guessed)
-            }.frame(width: 250, height: 250)
-            
-            HStack {
-                TextField("Name", text: $name)
-                    .disabled(guessed)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: GameConstants.cornerRadius).fill(GameConstants.lightGreyColor))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: GameConstants.cornerRadius)
-                            .stroke(lineWidth: 2)
-                    )
-                    .frame(width: 300)
-                Button {
-                    if guessed {
-                        choosePokemon()
-                        guessed = false
-                    } else {
-                        guessPokemon()
+            if !gameFinished {
+                Text("Who's that pokemon?")
+                    .font(.title)
+                
+                HStack {
+                    OptionalImage(uiImage: game.spriteImage, guessed: guessed)
+                }.frame(width: 250, height: 250)
+                
+                HStack {
+                    TextField("Name", text: $name)
+                        .disabled(guessed)
+                        .disableAutocorrection(true)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: GameConstants.cornerRadius).fill(GameConstants.lightGreyColor))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: GameConstants.cornerRadius)
+                                .stroke(lineWidth: 2)
+                        )
+                        .frame(width: 300)
+                    Button {
+                        if guessed {
+                            choosePokemon()
+                            guessed = false
+                        } else {
+                            guessPokemon()
+                        }
+                        
+                    } label: {
+                        if guessed {
+                            Image(systemName: "arrowtriangle.right")
+                                .scaleEffect(GameConstants.buttonScale)
+                        } else {
+                            Image(systemName: "checkmark")
+                                .scaleEffect(GameConstants.buttonScale)
+                        }
                     }
-                    
-                } label: {
-                    if guessed {
-                        Image(systemName: "arrowtriangle.right")
-                            .scaleEffect(GameConstants.buttonScale)
-                    } else {
-                        Image(systemName: "checkmark")
-                            .scaleEffect(GameConstants.buttonScale)
-                    }
+                        .padding()
+                        .foregroundColor(.black)
+                        .background(Color.yellow)
+                        .cornerRadius(GameConstants.cornerRadius)
+                        .shadow(color: .black, radius: 1)
                 }
-                    .padding()
-                    .foregroundColor(.black)
-                    .background(Color.yellow)
-                    .cornerRadius(GameConstants.cornerRadius)
-                    .shadow(color: .black, radius: 1)
             }
+        }.onAppear {
+            game.chooseRandomPokemon()
         }
     }
     

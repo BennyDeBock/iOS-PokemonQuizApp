@@ -13,7 +13,7 @@ class PokemonQuizGame: ObservableObject {
     
     
     private static func createPokemonRegion() -> PokemonRegionModel {
-        PokemonRegionModel(id: 1, name: "Kanto", lowerBound: 252, upperBound: 386)
+        PokemonRegionModel(id: 1, name: "Kanto", lowerBound: 252, upperBound: 254/*386*/)
         // 252 - 386
     }
     
@@ -74,10 +74,11 @@ class PokemonQuizGame: ObservableObject {
     //Choose a random pokemon from either the already stores list or get a pokemon not yet in the list
     func chooseRandomPokemon() {
         pokemonFetchStatus = PokemonFetchStatus.fetching
-        let pokedexRange = pokemonRegion.upperBound - pokemonRegion.lowerBound
+        let pokedexRange = pokemonRegion.upperBound - pokemonRegion.lowerBound + 1
+        var chosenPokemon = pokemonRegion.chooseRandomPokemon()
         
+        //Retrieve from the internet
         if pokemon.count != pokedexRange {
-            var chosenPokemon = pokemonRegion.chooseRandomPokemon()
             var newPokemon = false
             
             //Loop until it finds a pokemon that hasn't been added yet
@@ -104,6 +105,18 @@ class PokemonQuizGame: ObservableObject {
                     chosenPokemon = pokemonRegion.chooseRandomPokemon()
                 }
             } while (!newPokemon)
+        } else if !pokemonRegion.checkGameEnded() {
+            var notGuessedPokemon = false
+            repeat {
+                //Check if chosen pokemon has been guessed
+                if ((pokemon.getPokemon(matching: chosenPokemon)?.guessed) != nil) {
+                    chosenPokemon = pokemonRegion.chooseRandomPokemon()
+                } else {
+                    notGuessedPokemon = true
+                }
+            } while (!notGuessedPokemon)
+        } else {
+            print("Got all pokemon: \(pokemon.count):\(pokedexRange)")
         }
     }
     
@@ -120,5 +133,9 @@ class PokemonQuizGame: ObservableObject {
         } else {
             return false
         }
+    }
+    
+    func checkGameEnded() -> Bool {
+        pokemonRegion.checkGameEnded()
     }
 }
